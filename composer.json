@@ -1,0 +1,23 @@
+{
+  "name": "deguif/icu-parser",
+  "type": "library",
+  "description": "A parser for ICU messages",
+  "keywords": [
+    "icu"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "François-Xavier de Guillebon"
+    }
+  ],
+  "require": {
+    "php": "^7.1",
+    "deguif/icu-lexer": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Deguif\\Icu\\": "src/"
+    }
+  }
+}
