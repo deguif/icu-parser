@@ -4,8 +4,7 @@ namespace Deguif\Icu;
 
 class MessageArgumentSelector
 {
-    /** @var Message|null */
-    private $message;
+    private ?Message $message = null;
     /** @var mixed */
     private $value;
 

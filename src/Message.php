@@ -5,8 +5,8 @@ namespace Deguif\Icu;
 class Message
 {
     /** @var MessageArgument[] */
-    private $arguments = [];
-    private $text;
+    private array $arguments = [];
+    private string $text;
 
     public function __construct(string $text)
     {
