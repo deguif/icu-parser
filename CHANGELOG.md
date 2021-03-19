@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added changelog [#4](https://github.com/deguif/icu-parser/pull/4)
 * Added funding [#5](https://github.com/deguif/icu-parser/pull/5)
 * Added PHPStan checks on github action [#6](https://github.com/deguif/icu-parser/pull/6)
+* Run unit tests on github action [#8](https://github.com/deguif/icu-parser/pull/8)
 ### Changed
 * Bumped PHP minimum version to 7.4 [#7](https://github.com/deguif/icu-parser/pull/7)
 ### Deprecated

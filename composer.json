@@ -15,9 +15,17 @@
         "php": "^7.4",
         "deguif/icu-lexer": "^1.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
     "autoload": {
         "psr-4": {
             "Deguif\\Icu\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Deguif\\Icu\\Tests\\": "tests/"
         }
     }
 }
