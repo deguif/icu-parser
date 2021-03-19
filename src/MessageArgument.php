@@ -4,8 +4,8 @@ namespace Deguif\Icu;
 
 class MessageArgument
 {
-    private $name;
-    private $numeric;
+    private string $name;
+    private bool $numeric;
 
     public function __construct(string $name, bool $numeric)
     {

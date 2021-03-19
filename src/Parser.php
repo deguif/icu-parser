@@ -4,8 +4,7 @@ namespace Deguif\Icu;
 
 class Parser
 {
-    /** @var bool */
-    private $strict = false;
+    private bool $strict = false;
 
     public function parse(TokenStream $stream, bool $strict = false): Message
     {

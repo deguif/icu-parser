@@ -5,11 +5,9 @@ namespace Deguif\Icu;
 class MessageArgumentSelection extends MessageArgument
 {
     /** @var MessageArgumentSelector[] */
-    private $selectors = [];
-    /** @var string */
-    private $type;
-    /** @var int|null */
-    private $offset;
+    private array $selectors = [];
+    private string $type;
+    private ?int $offset;
 
     public function __construct(MessageArgument $prototype, string $type, ?int $offset = null)
     {
