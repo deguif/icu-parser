@@ -4,6 +4,7 @@ namespace Deguif\Icu;
 
 class Parser
 {
+    /** @var bool */
     private $strict = false;
 
     public function parse(TokenStream $stream, bool $strict = false): Message
@@ -36,7 +37,7 @@ class Parser
 
             if (Token::TYPE_ARG_START === $token->getType()) {
                 $message->addArgument($this->parseArgument($stream, $offset, $token->getLimit()));
-                $offset = $token->getLimit();
+                $offset = (int) $token->getLimit();
             }
         }
 
@@ -77,7 +78,7 @@ class Parser
                 }
 
                 $selector->setMessage($this->parseMessage($stream, ++$offset, $tokens[$offset]->getLimit()));
-                $offset = $tokens[$offset]->getLimit();
+                $offset = (int) $tokens[$offset]->getLimit();
 
                 if (!$argument instanceof MessageArgumentSelection) {
                     $argument = new MessageArgumentSelection($argument, $tokens[$startOffset]->getValue());
