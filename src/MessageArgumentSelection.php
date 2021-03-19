@@ -6,7 +6,9 @@ class MessageArgumentSelection extends MessageArgument
 {
     /** @var MessageArgumentSelector[] */
     private $selectors = [];
+    /** @var string */
     private $type;
+    /** @var int|null */
     private $offset;
 
     public function __construct(MessageArgument $prototype, string $type, ?int $offset = null)
@@ -42,11 +44,18 @@ class MessageArgumentSelection extends MessageArgument
         return $this;
     }
 
+    /**
+     * @return MessageArgument[]
+     */
     public function getArguments(bool $nested = false): array
     {
         $arguments = [];
 
         foreach ($this->selectors as $selector) {
+            if (null === $selector->getMessage()) {
+                continue;
+            }
+
             if ($selector->getMessage()->getArguments()) {
                 $arguments = \array_merge($arguments, $selector->getMessage()->getArguments($nested));
             }

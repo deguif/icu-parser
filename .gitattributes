@@ -2,3 +2,4 @@
 /.github export-ignore
 /.gitignore export-ignore
 /.php_cs.dist export-ignore
+/phpstan.neon.dist export-ignore

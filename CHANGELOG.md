@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added .gitignore [#3](https://github.com/deguif/icu-parser/pull/3)
 * Added changelog [#4](https://github.com/deguif/icu-parser/pull/4)
 * Added funding [#5](https://github.com/deguif/icu-parser/pull/5)
+* Added PHPStan checks github action [#6](https://github.com/deguif/icu-parser/pull/6)
 ### Changed
 ### Deprecated
 ### Removed

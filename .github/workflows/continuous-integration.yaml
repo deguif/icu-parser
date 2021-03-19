@@ -3,7 +3,7 @@ on: ['push', 'pull_request']
 jobs:
   cs:
     runs-on: 'ubuntu-20.04'
-    name: 'Coding style'
+    name: 'Coding style '
     steps:
       - name: 'Checkout'
         uses: 'actions/checkout@v2'
@@ -19,6 +19,60 @@ jobs:
       - name: 'Check PHP code'
         run: |
           php-cs-fixer fix --diff --dry-run --allow-risky=yes --using-cache=false
+
       - name: 'Check composer.json'
         run: |
           composer-normalize --diff --dry-run --indent-size=4 --indent-style=space --no-update-lock
+
+  phpstan:
+    runs-on: 'ubuntu-latest'
+    name: 'PHPStan (PHP ${{ matrix.php }})'
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        php:
+          - '7.2'
+      fail-fast: false
+    steps:
+      - name: 'Checkout'
+        uses: 'actions/checkout@v2'
+
+      - name: 'Setup PHP'
+        uses: 'shivammathur/setup-php@v2'
+        with:
+          php-version: '${{ matrix.php }}'
+          coverage: 'none'
+          extensions: 'curl, json, mbstring, openssl, tokenizer'
+          tools: 'composer:v2, phpstan:0.12.81'
+
+      - name: 'Get composer cache directory'
+        id: 'composer_cache'
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: 'Cache dependencies'
+        uses: 'actions/cache@v2'
+        with:
+          path: '${{ steps.composer_cache.outputs.dir }}'
+          key: '${{ runner.os }}-composer-php${{ matrix.php }}-${{ hashFiles(''**/composer.json'') }}'
+          restore-keys: |
+            ${{ runner.os }}-composer-php${{ matrix.php }}-
+            ${{ runner.os }}-composer-
+
+      - name: 'Update dependencies'
+        run: |
+          composer update --prefer-dist --no-interaction --no-progress --ansi
+
+      - name: 'Cache PHPStan results'
+        uses: 'actions/cache@v2'
+        with:
+          path: '/tmp/phpstan'
+          key: 'phpstan-php${{ matrix.php }}-${{ github.sha }}'
+          restore-keys: |
+            ${{ runner.os }}-phpstan-php${{ matrix.php }}-
+            ${{ runner.os }}-phpstan-
+        continue-on-error: true
+
+      - name: 'Run PHPStan analysis'
+        run: |
+          phpstan analyse --no-progress --no-interaction --ansi
