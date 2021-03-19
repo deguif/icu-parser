@@ -2,9 +2,6 @@
 
 namespace Deguif\Icu;
 
-use Deguif\Icu\Token;
-use Deguif\Icu\TokenStream;
-
 class Parser
 {
     private $strict = false;
@@ -76,7 +73,7 @@ class Parser
                 if (\in_array($tokens[$offset + 1]->getType(), [Token::TYPE_ARG_DOUBLE, Token::TYPE_ARG_INT], true)) {
                     $selector = new MessageArgumentSelector($tokens[++$offset]->getValue());
                 } else {
-                    $selector = new MessageArgumentSelector($token->getValue());;
+                    $selector = new MessageArgumentSelector($token->getValue());
                 }
 
                 $selector->setMessage($this->parseMessage($stream, ++$offset, $tokens[$offset]->getLimit()));
