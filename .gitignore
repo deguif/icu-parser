@@ -1,5 +1,7 @@
+/.php_cs
+/.php_cs.cache
+/.phpunit.cache
+.phpunit.result.cache
+/composer.lock
+/phpstan.neon
 /vendor
-.php_cs
-.php_cs.cache
-composer.lock
-phpstan.neon
