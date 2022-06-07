@@ -49,7 +49,7 @@ jobs:
           php-version: '${{ matrix.php }}'
           coverage: 'none'
           extensions: 'curl, json, mbstring, openssl, tokenizer'
-          tools: 'composer:v2, phpstan:0.12.81'
+          tools: 'composer:v2, phpstan:1.7.11'
 
       - name: 'Get composer cache directory'
         id: 'composer_cache'
