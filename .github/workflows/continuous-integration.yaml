@@ -3,15 +3,8 @@ on: ['push', 'pull_request']
 jobs:
   cs:
     runs-on: 'ubuntu-20.04'
-    name: 'Coding style (PHP ${{ matrix.php }})'
+    name: 'Coding style'
     timeout-minutes: 10
-    strategy:
-      matrix:
-        php:
-          - '7.4'
-          - '8.0'
-          - '8.1'
-      fail-fast: false
     steps:
       - name: 'Checkout'
         uses: 'actions/checkout@v2'
@@ -19,7 +12,7 @@ jobs:
       - name: 'Setup PHP'
         uses: 'shivammathur/setup-php@v2'
         with:
-          php-version: '${{ matrix.php }}'
+          php-version: '8.1'
           coverage: 'none'
           extensions: 'json, mbstring, tokenizer'
           tools: 'composer-normalize:2.13.3, php-cs-fixer:3.8.0'
@@ -34,15 +27,8 @@ jobs:
 
   phpstan:
     runs-on: 'ubuntu-latest'
-    name: 'PHPStan (PHP ${{ matrix.php }})'
+    name: 'PHPStan'
     timeout-minutes: 10
-    strategy:
-      matrix:
-        php:
-          - '7.4'
-          - '8.0'
-          - '8.1'
-      fail-fast: false
     steps:
       - name: 'Checkout'
         uses: 'actions/checkout@v2'
@@ -50,7 +36,7 @@ jobs:
       - name: 'Setup PHP'
         uses: 'shivammathur/setup-php@v2'
         with:
-          php-version: '${{ matrix.php }}'
+          php-version: '8.1'
           coverage: 'none'
           extensions: 'curl, json, mbstring, openssl, tokenizer'
           tools: 'composer:v2, phpstan:1.7.11'
@@ -64,9 +50,8 @@ jobs:
         uses: 'actions/cache@v2'
         with:
           path: '${{ steps.composer_cache.outputs.dir }}'
-          key: '${{ runner.os }}-composer-php${{ matrix.php }}-${{ hashFiles(''**/composer.json'') }}'
+          key: '${{ runner.os }}-composer-${{ hashFiles(''**/composer.json'') }}'
           restore-keys: |
-            ${{ runner.os }}-composer-php${{ matrix.php }}-
             ${{ runner.os }}-composer-
 
       - name: 'Update dependencies'
@@ -77,9 +62,8 @@ jobs:
         uses: 'actions/cache@v2'
         with:
           path: '/tmp/phpstan'
-          key: 'phpstan-php${{ matrix.php }}-${{ github.sha }}'
+          key: 'phpstan-${{ github.sha }}'
           restore-keys: |
-            ${{ runner.os }}-phpstan-php${{ matrix.php }}-
             ${{ runner.os }}-phpstan-
         continue-on-error: true
 
