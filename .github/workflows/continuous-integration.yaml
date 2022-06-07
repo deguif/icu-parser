@@ -24,7 +24,7 @@ jobs:
 
       - name: 'Check PHP code'
         run: |
-          php-cs-fixer fix --diff --dry-run --allow-risky=yes --using-cache=false
+          php-cs-fixer fix --diff --dry-run --allow-risky=yes --using-cache=no
 
       - name: 'Check composer.json'
         run: |
