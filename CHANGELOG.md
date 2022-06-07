@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Backward Compatibility Breaks
 ### Added
 ### Changed
+* Avoid duplicated CI jobs [#13](https://github.com/deguif/icu-parser/pull/13) by @deguif
 ### Deprecated
 ### Removed
 ### Fixed
