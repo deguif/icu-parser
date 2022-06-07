@@ -4,7 +4,7 @@ $finder = PhpCsFixer\Finder::create()
     ->in(['src/'])
 ;
 
-return PhpCsFixer\Config::create()
+return ($config = new PhpCsFixer\Config())
     ->setFinder($finder)
     ->setRules([
         '@PHP71Migration' => true,
