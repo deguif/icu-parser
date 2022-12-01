@@ -34,10 +34,22 @@ class Parser
         for ($offset = $startOffset + 1; $offset < $limitOffset; ++$offset) {
             $token = $tokens[$offset];
 
-            if (Token::TYPE_ARG_START === $token->getType()) {
-                $message->addArgument($this->parseArgument($stream, $offset, $token->getLimit()));
-                $offset = (int) $token->getLimit();
+            if (Token::TYPE_ARG_START !== $token->getType()) {
+                continue;
             }
+
+            $argument = $this->parseArgument($stream, $offset, $token->getLimit());
+            $uid = '{' . uniqid('arg') . '}';
+            $message->addArgument($argument, $uid);
+
+            $replaced = substr(
+                $stream->getSource(),
+                $token->getIndex(),
+                $tokens[$token->getLimit()]->getIndex() - $token->getIndex() +1
+            );
+            $message = $message->withPlaceholder($replaced, $uid);
+
+            $offset = (int) $token->getLimit();
         }
 
         return $message;

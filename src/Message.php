@@ -7,14 +7,19 @@ class Message
     /** @var MessageArgument[] */
     private array $arguments = [];
     private string $text;
+    private ?string $textWithPlaceholder;
 
-    public function __construct(string $text)
+    public function __construct(
+        string $text,
+        ?string $textWithPlaceholder = null,
+    )
     {
         $this->text = $text;
+        $this->textWithPlaceholder = $textWithPlaceholder;
     }
 
     /**
-     * @return MessageArgument[]
+     * @return array<string, MessageArgument>
      */
     public function getArguments(bool $nested = false): array
     {
@@ -42,9 +47,9 @@ class Message
         return false;
     }
 
-    public function addArgument(MessageArgument $argument): self
+    public function addArgument(MessageArgument $argument, string $placeholder): self
     {
-        $this->arguments[] = $argument;
+        $this->arguments[$placeholder] = $argument;
 
         return $this;
     }
@@ -52,5 +57,18 @@ class Message
     public function getText(): string
     {
         return $this->text;
+    }
+
+    public function withPlaceholder(string $argumentText, string $placeholder): self
+    {
+        $new = clone $this;
+        $new->textWithPlaceholder = str_replace($argumentText, $placeholder, $this->textWithPlaceholder ?? $this->text);
+
+        return $new;
+    }
+
+    public function getTextWithPlaceholders(): ?string
+    {
+        return $this->textWithPlaceholder;
     }
 }

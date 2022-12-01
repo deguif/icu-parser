@@ -7,11 +7,20 @@ use PHPUnit\Framework\TestCase;
 
 class MessageArgumentTest extends TestCase
 {
-    public function testInstantiation(): void
+    /** @dataProvider numericProvider */
+    public function testInstantiation(bool $isNumeric): void
     {
-        $argument = new MessageArgument('name', false);
+        $argument = new MessageArgument('name', $isNumeric);
 
         $this->assertSame('name', $argument->getName());
-        $this->assertFalse($argument->isNumeric());
+        $this->assertSame($isNumeric, $argument->isNumeric());
+    }
+
+    public function numericProvider(): array
+    {
+        return [
+            [true],
+            [false],
+        ];
     }
 }
